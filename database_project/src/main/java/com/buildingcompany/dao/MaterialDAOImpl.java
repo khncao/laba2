@@ -8,10 +8,14 @@ import java.sql.SQLException;
 import java.util.AbstractMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.buildingcompany.entities.Material;
 import com.buildingcompany.services.IConnectionPool;
 
 public class MaterialDAOImpl implements MaterialDAO {
+    private static Logger logger = LogManager.getLogger(MaterialDAOImpl.class);
     private IConnectionPool connectionPool;
     
     public MaterialDAOImpl(IConnectionPool connectionPool) {
@@ -38,7 +42,7 @@ public class MaterialDAOImpl implements MaterialDAO {
                         rs.getBigDecimal("weight_kg"));
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -68,7 +72,7 @@ public class MaterialDAOImpl implements MaterialDAO {
                     material.getPerCountryAvgCostPerUnit().add(entry);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);

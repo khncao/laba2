@@ -3,6 +3,9 @@ package com.buildingcompany.controllers;
 import java.text.NumberFormat;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.buildingcompany.dao.BuildingTypeDAOImpl;
 import com.buildingcompany.dao.BuildingTypeDAO;
 import com.buildingcompany.dao.MaterialDAO;
@@ -19,6 +22,7 @@ import com.buildingcompany.services.IConnectionPool;
 import com.buildingcompany.services.MySqlConnection;
 
 public class BuildEstimateController {
+    private static Logger logger = LogManager.getLogger(BuildEstimateController.class);
     private ICalculateBuildTime calculateBuildTime;
     private ICalculateBuildCost calculateBuildCost;
     private IConnectionPool connectionPool;
@@ -36,7 +40,7 @@ public class BuildEstimateController {
     }
 
     public String runCalculation(Address address, String buildingTypeName, float foundationSqrMeters, int numFloors) {
-        System.out.println("Calculation Input: [" + address.toString() + "], [Type: " + buildingTypeName + "], [M^2: " + foundationSqrMeters + "], [Floors: " + numFloors + ']');
+        logger.info("Calculation Input: [" + address.toString() + "], [Type: " + buildingTypeName + "], [M^2: " + foundationSqrMeters + "], [Floors: " + numFloors + ']');
         
         BuildingType buildingType = buildingTypeDAO.getBuildingType(buildingTypeName);
         buildingTypeDAO.getBuildingTypeRequirements(buildingType);
@@ -58,16 +62,16 @@ public class BuildEstimateController {
     public void testPrintReqResources(String buildingTypeName) {
         BuildingType buildingType = buildingTypeDAO.getBuildingType(buildingTypeName);
         buildingTypeDAO.getBuildingTypeRequirements(buildingType);
-        System.out.println("Requirements: ");
-        System.out.println("Mats:");
+        logger.info("Requirements: ");
+        logger.info("Mats:");
         buildingType.getRequiredMaterialAmounts()
-            .forEach((var d)->{System.out.println(d);});
-        System.out.println("Tools:");
+            .forEach((var d)->{logger.info(d);});
+        logger.info("Tools:");
         buildingType.getRequiredToolRentalHours()
-            .forEach((var d)->{System.out.println(d);});
-        System.out.println("Labor:");
+            .forEach((var d)->{logger.info(d);});
+        logger.info("Labor:");
         buildingType.getRequiredLaborRoleHours()
-            .forEach((var d)->{System.out.println(d);});
+            .forEach((var d)->{logger.info(d);});
     }
 
     public int updateBuildingTypeChoices(List<String> buildingTypeNames) {

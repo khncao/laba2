@@ -1,6 +1,7 @@
 module com.buildingcompany {
     requires transitive javafx.controls;
     requires transitive java.sql;
+    requires org.apache.logging.log4j;
 
     exports com.buildingcompany;
     exports com.buildingcompany.dao;

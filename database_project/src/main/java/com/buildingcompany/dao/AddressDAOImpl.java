@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.services.IConnectionPool;
 
 public class AddressDAOImpl implements AddressDAO {
+    private static Logger logger = LogManager.getLogger(AddressDAOImpl.class);
     private IConnectionPool connectionPool;
     
     public AddressDAOImpl(IConnectionPool connectionPool) {
@@ -34,7 +38,7 @@ public class AddressDAOImpl implements AddressDAO {
                     address = parseAddressAllColumnsJoinName(rs);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -60,7 +64,7 @@ public class AddressDAOImpl implements AddressDAO {
                     addresses.add(address);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -85,7 +89,7 @@ public class AddressDAOImpl implements AddressDAO {
                     addresses.add(address);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -106,7 +110,7 @@ public class AddressDAOImpl implements AddressDAO {
                 rs.getString("zipcode")
             );
         } catch(SQLException e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
         }
         return address;
     }

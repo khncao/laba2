@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.entities.Company;
 import com.buildingcompany.services.IConnectionPool;
 
 public class CompanyDAOImpl implements CompanyDAO {
+    private static Logger logger = LogManager.getLogger(CompanyDAOImpl.class);
     private IConnectionPool connectionPool;
     private AddressDAO addressDAO;
     
@@ -46,7 +50,7 @@ public class CompanyDAOImpl implements CompanyDAO {
                     companies.add(company);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);

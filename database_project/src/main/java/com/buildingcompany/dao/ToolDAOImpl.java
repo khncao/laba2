@@ -8,10 +8,14 @@ import java.sql.SQLException;
 import java.util.AbstractMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.buildingcompany.entities.Tool;
 import com.buildingcompany.services.IConnectionPool;
 
 public class ToolDAOImpl implements ToolDAO {
+    private static Logger logger = LogManager.getLogger(ToolDAOImpl.class);
     private IConnectionPool connectionPool;
     
     public ToolDAOImpl(IConnectionPool connectionPool) {
@@ -37,7 +41,7 @@ public class ToolDAOImpl implements ToolDAO {
                         rs.getBigDecimal("weight_kg"));
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -67,7 +71,7 @@ public class ToolDAOImpl implements ToolDAO {
                     tool.getPerCountryAvgCostPerRentalHour().add(entry);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);

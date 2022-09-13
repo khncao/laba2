@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.buildingcompany.entities.BuildingType;
 import com.buildingcompany.entities.Material;
 import com.buildingcompany.entities.Tool;
@@ -14,6 +17,7 @@ import com.buildingcompany.services.IConnectionPool;
 import com.buildingcompany.utility.BuildingTypeAmounts;
 
 public class BuildingTypeDAOImpl implements BuildingTypeDAO {
+    private static Logger logger = LogManager.getLogger(BuildingTypeDAOImpl.class);
     private IConnectionPool connectionPool;
     private MaterialDAO materialDAO;
     private ToolDAO toolDAO;
@@ -40,7 +44,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
                     buildingTypeNames.add(rs.getString("name"));
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -63,7 +67,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
                     buildingType = parseBuildingTypeAllColumns(rs);
                 }
             } catch (SQLException e) {
-                System.out.println(e.toString());
+                logger.error(e.toString());
             }
         } finally {
             connectionPool.freeConnection(conn);
@@ -73,7 +77,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
 
     public BuildingType getBuildingTypeRequirements(BuildingType buildingType) {
         if(buildingType == null || buildingType.getId() < 1) {
-            System.out.println("getBuildingTypeRequirements buildingType null or not initialized");
+            logger.error("getBuildingTypeRequirements buildingType null or not initialized");
             return null;
         }
         Connection conn = null;
@@ -108,7 +112,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
                 buildingType.getRequiredMaterialAmounts().add(reqMats);
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
         }
     }
 
@@ -132,7 +136,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
                 buildingType.getRequiredToolRentalHours().add(reqTools);
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
         }
     }
 
@@ -154,7 +158,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
                 buildingType.getRequiredLaborRoleHours().add(reqLabor);
             }
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
         }
     }
 
@@ -169,7 +173,7 @@ public class BuildingTypeDAOImpl implements BuildingTypeDAO {
                 rs.getBigDecimal("max_foundation_sqrmeters")
             );
         } catch (SQLException e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
         }
         return buildingType;
     }
