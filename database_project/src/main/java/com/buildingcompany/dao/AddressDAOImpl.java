@@ -16,6 +16,13 @@ import com.buildingcompany.services.IConnectionPool;
 public class AddressDAOImpl implements AddressDAO {
     private static Logger logger = LogManager.getLogger(AddressDAOImpl.class);
     private IConnectionPool connectionPool;
+    private final String ALL_COLS = "address.id,line_1,line_2,line_3,country_id,city_id,zipcode";
+    private final String SELECT_ALL_COLS_NAMES_JOINED = "SELECT address.id, line_1, line_2, line_3, country.name, city.name, zipcode " 
+    + "FROM address JOIN country ON address.country_id = country.id "
+    + "             JOIN city ON address.city_id = city.id ";
+    private final String UPDATE_ALL_COLS_FORMAT = "UPDATE address SET address.id=%s,line_1=%s,line_2=%s,line_3=%s,country_id=%s,city_id=%s,zipcode=%s WHERE address.id = %s";
+    private final String INSERT_ALL_COLS_FORMAT = "INSERT INTO address(" + ALL_COLS + ") VALUES (%s,%s,%s,%s,%s,%s,%s)";
+    private final String DELETE_BY_ID_FORMAT = "DELETE FROM address WHERE address.id = %s";
     
     public AddressDAOImpl(IConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
@@ -24,10 +31,7 @@ public class AddressDAOImpl implements AddressDAO {
     // TODO(khncao): maybe can further parameterize or use conditional string building to avoid so much similar code
     public Address getAddressById(int primaryKey) {
         Address address = null;
-        String query = "SELECT address.id, line_1, line_2, line_3, country.name, city.name, zipcode\n" 
-            + "FROM address JOIN country ON address.country_id = country.id\n"
-            + "             JOIN city ON address.city_id = city.id\n"
-            + "WHERE id = ?;";
+        String query = SELECT_ALL_COLS_NAMES_JOINED + "WHERE id = ?;";
         Connection conn = null;
         try {
             conn = connectionPool.getConnection();
@@ -48,9 +52,7 @@ public class AddressDAOImpl implements AddressDAO {
 
     public List<Address> getAddressesByCity(String cityName, String countryName) {
         ArrayList<Address> addresses = new ArrayList<>();
-        String query = "SELECT address.id, line_1, line_2, line_3, country.name, city.name, zipcode\n" 
-            + "FROM address JOIN country ON address.country_id = country.id\n"
-            + "             JOIN city ON address.city_id = city.id\n"
+        String query = SELECT_ALL_COLS_NAMES_JOINED
             + "WHERE country.name = ? AND city.name = ?;";
         Connection conn = null;
         try {
@@ -74,10 +76,7 @@ public class AddressDAOImpl implements AddressDAO {
 
     public List<Address> getAddressesByCountry(String countryName) {
         ArrayList<Address> addresses = new ArrayList<>();
-        String query = "SELECT address.id, line_1, line_2, line_3, country.name, city.name, zipcode\n" 
-            + "FROM address JOIN country ON address.country_id = country.id\n"
-            + "             JOIN city ON address.city_id = city.id\n"
-            + "WHERE country.name = ?;";
+        String query = SELECT_ALL_COLS_NAMES_JOINED + "WHERE country.name = ?;";
         Connection conn = null;
         try {
             conn = connectionPool.getConnection();
@@ -113,5 +112,88 @@ public class AddressDAOImpl implements AddressDAO {
             logger.error(e.toString());
         }
         return address;
+    }
+
+    public void create(Address t) {
+        String query = String.format(INSERT_ALL_COLS_FORMAT + ";", 
+            t.getId(), 
+            t.getLine1(), 
+            t.getLine2(), 
+            t.getLine3(), 
+            GenericDAO.generateGetIdFromName("country", t.getCountry()), 
+            GenericDAO.generateGetIdFromName("city", t.getCity()), 
+            t.getZipCode());
+        Connection conn = null;
+        try {
+            conn = connectionPool.getConnection();
+            try(PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.execute();
+            } catch (SQLException e) {
+                logger.error(e.toString());
+            }
+        } finally {
+            connectionPool.freeConnection(conn);
+        }
+    }
+
+    public List<Address> readAll() {
+        ArrayList<Address> addresses = new ArrayList<>();
+        String query = SELECT_ALL_COLS_NAMES_JOINED + ";";
+        Connection conn = null;
+        try {
+            conn = connectionPool.getConnection();
+            try(PreparedStatement statement = conn.prepareStatement(query)) {
+                ResultSet rs = statement.executeQuery();
+                while(rs.next()) {
+                    Address address = parseAddressAllColumnsJoinName(rs);
+                    addresses.add(address);
+                }
+            } catch (SQLException e) {
+                logger.error(e.toString());
+            }
+        } finally {
+            connectionPool.freeConnection(conn);
+        }
+        return addresses;
+    }
+
+    public void update(Address t) {
+        String query = String.format(UPDATE_ALL_COLS_FORMAT + ";", 
+            t.getId(), 
+            t.getLine1(), 
+            t.getLine2(), 
+            t.getLine3(), 
+            GenericDAO.generateGetIdFromName("country", t.getCountry()), 
+            GenericDAO.generateGetIdFromName("city", t.getCity()), 
+            t.getZipCode(),
+            t.getId());
+        Connection conn = null;
+        try {
+            conn = connectionPool.getConnection();
+            try(PreparedStatement statement = conn.prepareStatement(query)) {
+                int count = statement.executeUpdate();
+                logger.info("Updated records: " + count);
+            } catch (SQLException e) {
+                logger.error(e.toString());
+            }
+        } finally {
+            connectionPool.freeConnection(conn);
+        }
+    }
+    
+    public void delete(Address t) {
+        String query = String.format(DELETE_BY_ID_FORMAT + ";", t.getId());
+        Connection conn = null;
+        try {
+            conn = connectionPool.getConnection();
+            try(PreparedStatement statement = conn.prepareStatement(query)) {
+                int count = statement.executeUpdate();
+                logger.info("Deleted record count: " + count);
+            } catch (SQLException e) {
+                logger.error(e.toString());
+            }
+        } finally {
+            connectionPool.freeConnection(conn);
+        }
     }
 }
