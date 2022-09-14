@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<?xml-model href="Address.xml" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<Addresses>
+    <Address>
+        <id>1</id>
+        <country>USA</country>
+        <city>Los Angeles</city>
+    </Address>
+    <Address>
+        <id>2</id>
+        <country>Brazil</country>
+        <city>Sao Paulo</city>
+    </Address>
+    <Address>
+        <id>3</id>
+        <country>Japan</country>
+        <city>Tokyo</city>
+    </Address>
+    <Address>
+        <id>4</id>
+        <country>Ukraine</country>
+        <city>Kiev</city>
+    </Address>
+</Addresses>

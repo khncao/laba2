@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import com.buildingcompany.controllers.BuildEstimateController;
+import com.buildingcompany.services.IXMLParser;
+import com.buildingcompany.services.XMLParserSAXImpl;
 import com.buildingcompany.views.BuildEstimateView;
 import com.buildingcompany.views.LoginView;
 
@@ -44,6 +46,11 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        IXMLParser xmlParser = new XMLParserSAXImpl();
+        xmlParser.parse("BuildingType", true);
+        xmlParser.parse("Address", true);
+        xmlParser.parse("Material", true);
+        xmlParser.parse("Tool", true);
         launch();
     }
 }

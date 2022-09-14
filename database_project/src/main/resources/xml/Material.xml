@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<?xml-model href="Material.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<Materials>
+    <Material>
+        <id>1</id>
+        <name>2x4</name>
+    </Material>
+    <Material>
+        <id>2</id>
+        <name>m^3 Cement</name>
+    </Material>
+    <Material>
+        <id>3</id>
+        <name>Steel I-Beam</name>
+    </Material>
+</Materials>
