@@ -20,12 +20,10 @@ import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.buildingcompany.dao.sax.GenericCollectionHandler;
+import com.buildingcompany.utility.Resources;
 
 public class XMLParserSAXImpl implements IXMLParser {
     private static Logger logger = LogManager.getLogger(XMLParserSAXImpl.class);
-    private final String relPath = "database_project/src/main/resources/";
-    private final String xmlPath = relPath + "xml/";
-    private final String xsdPath = relPath + "xsd/";
     private final String handlerModulePath = "com.buildingcompany.dao.sax.";
     private SAXParserFactory parserFactory;
     private SchemaFactory schemaFactory;
@@ -47,7 +45,7 @@ public class XMLParserSAXImpl implements IXMLParser {
             Class c = Class.forName(handlerModulePath + entityClass.getSimpleName() + "Handler");
             GenericCollectionHandler<T> handler = (GenericCollectionHandler<T>)c.getDeclaredConstructor().newInstance();
             SAXParser saxParser = parserFactory.newSAXParser();
-            saxParser.parse(xmlPath + xmlFileNameNoExt + ".xml", handler);
+            saxParser.parse(Resources.xmlPath + xmlFileNameNoExt + ".xml", handler);
             return handler.getResults();
         } catch(ClassNotFoundException e) {
             logger.error(e.toString());
@@ -63,11 +61,11 @@ public class XMLParserSAXImpl implements IXMLParser {
         return null;
     }
 
-    public boolean validate(String xmlFileNameNoExt, String xsdFileNameNoExt) {
+    public <T> boolean validate(String xmlFileNameNoExt, String xsdFileNameNoExt, Class<T> entityClass) {
         try {
-            schema = schemaFactory.newSchema(new File(xsdPath + xsdFileNameNoExt + ".xsd"));
+            schema = schemaFactory.newSchema(new File(Resources.xsdPath + xsdFileNameNoExt + ".xsd"));
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(xmlPath + xmlFileNameNoExt + ".xml")));
+            validator.validate(new StreamSource(new File(Resources.xmlPath + xmlFileNameNoExt + ".xml")));
         } catch(SAXException e) {
             logger.error(e.toString());
             return false;

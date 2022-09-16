@@ -6,6 +6,10 @@ import java.util.List;
 
 import com.buildingcompany.utility.BuildingTypeAmounts;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "BuildingType")
 public class BuildingType {
     private int id;
     private String name;
@@ -16,7 +20,11 @@ public class BuildingType {
     private List<BuildingTypeAmounts<Tool>> requiredToolRentalHours;
     private List<BuildingTypeAmounts<String>> requiredLaborRoleHours;
 
-    public BuildingType(int id, String name, BigDecimal baseCost, BigDecimal minFoundationSqrMeters, BigDecimal maxFoundationSqrMeters) {
+    public BuildingType() {
+    }
+
+    public BuildingType(int id, String name, BigDecimal baseCost, BigDecimal minFoundationSqrMeters,
+            BigDecimal maxFoundationSqrMeters) {
         this.id = id;
         this.name = name;
         this.baseCost = baseCost;
@@ -31,6 +39,7 @@ public class BuildingType {
         return id;
     }
 
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -39,6 +48,7 @@ public class BuildingType {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -47,6 +57,7 @@ public class BuildingType {
         return baseCost;
     }
 
+    @XmlElement
     public void setBaseCost(BigDecimal baseCost) {
         this.baseCost = baseCost;
     }
@@ -55,6 +66,7 @@ public class BuildingType {
         return minFoundationSqrMeters;
     }
 
+    @XmlElement
     public void setMinFoundationSqrMeters(BigDecimal minFoundationSqrMeters) {
         this.minFoundationSqrMeters = minFoundationSqrMeters;
     }
@@ -63,6 +75,7 @@ public class BuildingType {
         return maxFoundationSqrMeters;
     }
 
+    @XmlElement
     public void setMaxFoundationSqrMeters(BigDecimal maxFoundationSqrMeters) {
         this.maxFoundationSqrMeters = maxFoundationSqrMeters;
     }

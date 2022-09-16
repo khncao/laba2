@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.buildingcompany.controllers.BuildEstimateController;
 import com.buildingcompany.entities.*;
 import com.buildingcompany.services.IXMLParser;
+import com.buildingcompany.services.XMLParserJAXBImpl;
 import com.buildingcompany.services.XMLParserSAXImpl;
 import com.buildingcompany.views.BuildEstimateView;
 import com.buildingcompany.views.LoginView;
@@ -51,23 +52,30 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        logger.info("SAX:");
         testXmlParser(new XMLParserSAXImpl());
+        logger.info("JAXB:");
+        testXmlParser(new XMLParserJAXBImpl());
         launch();
     }
 
     private static void testXmlParser(IXMLParser xmlParser) {
-        boolean btypeValid = xmlParser.validate("BuildingType", "BuildingType");
+        boolean btypeValid = xmlParser.validate("BuildingType", "BuildingType", BuildingType.class);
         logger.info(btypeValid);
+        boolean toolValid = xmlParser.validate("Tool", "Tool", Tool.class);
+        logger.info(toolValid);
 
         var buildingTypes = xmlParser.parse("BuildingType", BuildingType.class);
         logger.info(buildingTypes.size() == 3);
+
         var addresses = xmlParser.parse("Address", Address.class);
         logger.info(addresses.size() == 4);
+
         var materials = xmlParser.parse("Material", Material.class);
         logger.info(materials.size() == 3);
+        
         var tools = xmlParser.parse("Tool", Tool.class);
         logger.info(tools.size() == 3);
-        logger.info("Tools:");
         tools.stream().forEach(t -> logger.info(t.toString()));
     }
 }
