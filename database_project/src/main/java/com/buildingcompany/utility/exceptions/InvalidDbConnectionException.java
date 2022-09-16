@@ -1,4 +1,4 @@
-package com.buildingcompany.exceptions;
+package com.buildingcompany.utility.exceptions;
 
 public class InvalidDbConnectionException extends Exception {
     
