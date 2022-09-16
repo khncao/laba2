@@ -15,7 +15,8 @@ public class CalculateBuildCostService implements ICalculateBuildCost {
         BigDecimal buildingBaseCost = buildingType.getBaseCost();
         BigDecimal foundationCostPerSqrMeter = BigDecimal.ZERO;
         BigDecimal costPerSqrMeter = BigDecimal.ZERO;
-
+        
+        // TODO(khncao): to stream
         for(var m : buildingType.getRequiredMaterialAmounts()) {
             var material = m.getObject();
             var countryAvgCost = material.getPerCountryAvgCostPerUnit().stream()
