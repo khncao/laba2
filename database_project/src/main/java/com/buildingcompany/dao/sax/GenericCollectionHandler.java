@@ -12,6 +12,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public abstract class GenericCollectionHandler<T> extends DefaultHandler {
     private Map<String, String> tempFields = new HashMap<>();
+    private StringBuffer sBuffer = new StringBuffer();
     private String qNameCursor;
     private String typeName;
     
@@ -29,12 +30,13 @@ public abstract class GenericCollectionHandler<T> extends DefaultHandler {
 
     @Override
     public void characters(char[] chars, int beg, int len) throws SAXException {
-        tempFields.put(qNameCursor, new String(chars, beg, len));
+        sBuffer.append(chars, beg, len);
     }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
         qNameCursor = qName;
+        sBuffer = new StringBuffer();
     }
 
     @Override
@@ -42,6 +44,8 @@ public abstract class GenericCollectionHandler<T> extends DefaultHandler {
         if(qName.equalsIgnoreCase(typeName)) {
             processElement(tempFields);
             tempFields.clear();
+        } else {
+            tempFields.put(qNameCursor, sBuffer.toString());
         }
     }
 

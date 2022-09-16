@@ -1,5 +1,5 @@
 <?xml version = "1.0" encoding="UTF-8"?>
-<?xml-model href="Tool.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="../xsd/Tool.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <Tools>
     <Tool>
         <id>1</id>

@@ -23,7 +23,9 @@ import com.buildingcompany.dao.sax.GenericCollectionHandler;
 
 public class XMLParserSAXImpl implements IXMLParser {
     private static Logger logger = LogManager.getLogger(XMLParserSAXImpl.class);
-    private final String relPath = "database_project/src/main/resources/xml/";
+    private final String relPath = "database_project/src/main/resources/";
+    private final String xmlPath = relPath + "xml/";
+    private final String xsdPath = relPath + "xsd/";
     private final String handlerModulePath = "com.buildingcompany.dao.sax.";
     private SAXParserFactory parserFactory;
     private SchemaFactory schemaFactory;
@@ -40,18 +42,12 @@ public class XMLParserSAXImpl implements IXMLParser {
         }
     }
 
-    public <T> List<T> parse(String fileNameNoExt, boolean shouldValidate) {
+    public <T> List<T> parse(String xmlFileNameNoExt, Class<T> entityClass) {
         try {
-            Class c = Class.forName(handlerModulePath + fileNameNoExt + "Handler");
+            Class c = Class.forName(handlerModulePath + entityClass.getSimpleName() + "Handler");
             GenericCollectionHandler<T> handler = (GenericCollectionHandler<T>)c.getDeclaredConstructor().newInstance();
-            if(shouldValidate) {
-                schema = schemaFactory.newSchema(new File(relPath + fileNameNoExt + ".xsd"));
-                parserFactory.setSchema(schema);
-            } else {
-                parserFactory.setSchema(null);
-            }
             SAXParser saxParser = parserFactory.newSAXParser();
-            saxParser.parse(relPath + fileNameNoExt + ".xml", handler);
+            saxParser.parse(xmlPath + xmlFileNameNoExt + ".xml", handler);
             return handler.getResults();
         } catch(ClassNotFoundException e) {
             logger.error(e.toString());
@@ -67,11 +63,11 @@ public class XMLParserSAXImpl implements IXMLParser {
         return null;
     }
 
-    public boolean validate(String fileNameNoExt) {
+    public boolean validate(String xmlFileNameNoExt, String xsdFileNameNoExt) {
         try {
-            schema = schemaFactory.newSchema(new File(relPath + fileNameNoExt + ".xsd"));
+            schema = schemaFactory.newSchema(new File(xsdPath + xsdFileNameNoExt + ".xsd"));
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(relPath + fileNameNoExt + ".xml")));
+            validator.validate(new StreamSource(new File(xmlPath + xmlFileNameNoExt + ".xml")));
         } catch(SAXException e) {
             logger.error(e.toString());
             return false;

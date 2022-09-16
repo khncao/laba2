@@ -1,5 +1,5 @@
 <?xml version = "1.0" encoding="UTF-8"?>
-<?xml-model href="Address.xml" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="../xsd/Address.xml" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <Addresses>
     <Address>
         <id>1</id>
