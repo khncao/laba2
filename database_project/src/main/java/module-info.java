@@ -9,5 +9,5 @@ module com.buildingcompany {
     exports com.buildingcompany.controllers;
     exports com.buildingcompany.views;
     exports com.buildingcompany.services;
-    exports com.buildingcompany.exceptions;
+    exports com.buildingcompany.utility.exceptions;
 }
