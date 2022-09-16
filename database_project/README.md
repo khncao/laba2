@@ -7,6 +7,16 @@ Estimate how long it will take and how much it will cost to build different type
 - Entity/model for employee role average hourly cost per country
 - Time and cost breakdown
 - Input validation and feedback; ie. address country not supported in dataset
+- Cleanup
+	- remove unneeded gitignores
+	- unimplemented: unsupportedOpException("method descrip not impl")
+	- dispose ResultSet
+	- avoid unneeded nested try catch blocks with same exceptions
+	- move queries to final class scope string
+	- async
+		- for foreach loops to stream
+		- careful with state in different scope
+	- xmlParse: take file path as input
 
 ### Changelog:
 - Switch to DAO pattern for entity database queries; implement simple framework

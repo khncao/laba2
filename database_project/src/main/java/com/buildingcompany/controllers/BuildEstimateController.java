@@ -64,13 +64,13 @@ public class BuildEstimateController {
         buildingTypeDAO.getBuildingTypeRequirements(buildingType);
         logger.info("Requirements: ");
         logger.info("Mats:");
-        buildingType.getRequiredMaterialAmounts()
+        buildingType.getRequiredMaterialAmounts().stream()
             .forEach((var d)->{logger.info(d);});
         logger.info("Tools:");
-        buildingType.getRequiredToolRentalHours()
+        buildingType.getRequiredToolRentalHours().stream()
             .forEach((var d)->{logger.info(d);});
         logger.info("Labor:");
-        buildingType.getRequiredLaborRoleHours()
+        buildingType.getRequiredLaborRoleHours().stream()
             .forEach((var d)->{logger.info(d);});
     }
 
