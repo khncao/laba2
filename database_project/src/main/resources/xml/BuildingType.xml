@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<?xml-model href="../xsd/BuildingType.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<BuildingTypes>
+    <BuildingType>
+        <id>1</id>
+        <name>Family Home</name>
+        <baseCost>10000.00</baseCost>
+    </BuildingType>
+    <BuildingType>
+        <id>2</id>
+        <name>Warehouse</name>
+        <baseCost>20000.00</baseCost>
+    </BuildingType>
+    <BuildingType>
+        <id>3</id>
+        <name>Skyscraper</name>
+        <baseCost>1000000.00</baseCost>
+    </BuildingType>
+</BuildingTypes>
