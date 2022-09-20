@@ -1,5 +1,9 @@
 package com.buildingcompany.entities;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Address")
 public class Address {
     private int id;
     private String line1;
@@ -15,7 +19,10 @@ public class Address {
      */
     private String city;
     private String zipCode;
-    
+
+    public Address() {
+    }
+
     public Address(int id, String line1, String line2, String line3, String country, String city, String zipCode) {
         this.line1 = line1;
         this.line2 = line2;
@@ -29,6 +36,7 @@ public class Address {
         return id;
     }
 
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -37,6 +45,7 @@ public class Address {
         return line1;
     }
 
+    @XmlElement
     public void setLine1(String line1) {
         this.line1 = line1;
     }
@@ -45,6 +54,7 @@ public class Address {
         return line2;
     }
 
+    @XmlElement
     public void setLine2(String line2) {
         this.line2 = line2;
     }
@@ -53,6 +63,7 @@ public class Address {
         return line3;
     }
 
+    @XmlElement
     public void setLine3(String line3) {
         this.line3 = line3;
     }
@@ -61,6 +72,7 @@ public class Address {
         return country;
     }
 
+    @XmlElement
     public void setCountry(String country) {
         this.country = country;
     }
@@ -69,6 +81,7 @@ public class Address {
         return city;
     }
 
+    @XmlElement
     public void setCity(String city) {
         this.city = city;
     }
@@ -77,6 +90,7 @@ public class Address {
         return zipCode;
     }
 
+    @XmlElement
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }

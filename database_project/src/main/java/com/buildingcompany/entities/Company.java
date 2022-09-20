@@ -1,20 +1,28 @@
 package com.buildingcompany.entities;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Company")
 public class Company {
     private int id;
     private String name;
 
     /**
-     * Address may not have proper id field if not queried from database. 
+     * Address may not have proper id field if not queried from database.
      * If want to use address.id should check if value is greater than 0
      */
     private Address address;
 
     /**
-     * String form of ideally enum type 'industry' table. 
-     * There's probably a better implementation, maybe wrapper around enum/table ordinal
+     * String form of ideally enum type 'industry' table.
+     * There's probably a better implementation, maybe wrapper around enum/table
+     * ordinal
      */
     private String industry;
+
+    public Company() {
+    }
 
     public Company(int id, String name, Address address, String industry) {
         this.id = id;
@@ -27,6 +35,7 @@ public class Company {
         return id;
     }
 
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -35,6 +44,7 @@ public class Company {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -43,6 +53,7 @@ public class Company {
         return address;
     }
 
+    @XmlElement
     public void setAddress(Address address) {
         this.address = address;
     }
@@ -51,6 +62,7 @@ public class Company {
         return industry;
     }
 
+    @XmlElement
     public void setIndustry(String industry) {
         this.industry = industry;
     }
