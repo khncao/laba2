@@ -30,6 +30,7 @@ public class Address {
     }
 
     public Address(int id, String line1, String line2, String line3, String country, String city, String zipCode) {
+        this.id = id;
         this.line1 = line1;
         this.line2 = line2;
         this.line3 = line3;
