@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement(name = "Tool")
 public class Tool {
     private int id;
     private String name;
@@ -12,7 +17,10 @@ public class Tool {
     private BigDecimal maxLoadKg;
     private BigDecimal weightKg;
     private List<Map.Entry<String, BigDecimal>> perCountryAvgCostPerRentalHour;
-    
+
+    public Tool() {
+    }
+
     public Tool(int id, String name, BigDecimal capacityCubicMeters, BigDecimal maxLoadKg, BigDecimal weightKg) {
         this.id = id;
         this.name = name;
@@ -26,6 +34,7 @@ public class Tool {
         return id;
     }
 
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -34,6 +43,7 @@ public class Tool {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -42,6 +52,7 @@ public class Tool {
         return capacityCubicMeters;
     }
 
+    @XmlElement
     public void setCapacityCubicMeters(BigDecimal capacityCubicMeters) {
         this.capacityCubicMeters = capacityCubicMeters;
     }
@@ -50,6 +61,7 @@ public class Tool {
         return maxLoadKg;
     }
 
+    @XmlElement
     public void setMaxLoadKg(BigDecimal maxLoadKg) {
         this.maxLoadKg = maxLoadKg;
     }
@@ -58,6 +70,7 @@ public class Tool {
         return weightKg;
     }
 
+    @XmlElement
     public void setWeightKg(BigDecimal weightKg) {
         this.weightKg = weightKg;
     }
@@ -66,6 +79,7 @@ public class Tool {
         return perCountryAvgCostPerRentalHour;
     }
 
+    @XmlTransient
     public void setPerCountryAvgCostPerRentalHour(List<Map.Entry<String, BigDecimal>> perCountryAvgCost) {
         this.perCountryAvgCostPerRentalHour = perCountryAvgCost;
     }

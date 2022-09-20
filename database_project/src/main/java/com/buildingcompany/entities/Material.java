@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement(name = "Material")
 public class Material {
     private int id;
     private String name;
@@ -14,7 +19,11 @@ public class Material {
     private BigDecimal weightKg;
     private List<Map.Entry<String, BigDecimal>> perCountryAvgCostPerUnit;
 
-    public Material(int id, String name, BigDecimal lengthMeters, BigDecimal widthMeters, BigDecimal heightMeters, BigDecimal weightKg) {
+    public Material() {
+    }
+
+    public Material(int id, String name, BigDecimal lengthMeters, BigDecimal widthMeters, BigDecimal heightMeters,
+            BigDecimal weightKg) {
         this.id = id;
         this.name = name;
         this.lengthMeters = lengthMeters;
@@ -28,6 +37,7 @@ public class Material {
         return id;
     }
 
+    @XmlElement
     public void setId(int id) {
         this.id = id;
     }
@@ -36,6 +46,7 @@ public class Material {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -44,6 +55,7 @@ public class Material {
         return lengthMeters;
     }
 
+    @XmlElement
     public void setLengthMeters(BigDecimal lengthMeters) {
         this.lengthMeters = lengthMeters;
     }
@@ -52,6 +64,7 @@ public class Material {
         return widthMeters;
     }
 
+    @XmlElement
     public void setWidthMeters(BigDecimal widthMeters) {
         this.widthMeters = widthMeters;
     }
@@ -60,6 +73,7 @@ public class Material {
         return heightMeters;
     }
 
+    @XmlElement
     public void setHeightMeters(BigDecimal heightMeters) {
         this.heightMeters = heightMeters;
     }
@@ -68,6 +82,7 @@ public class Material {
         return weightKg;
     }
 
+    @XmlElement
     public void setWeightKg(BigDecimal weightKg) {
         this.weightKg = weightKg;
     }
@@ -76,6 +91,7 @@ public class Material {
         return perCountryAvgCostPerUnit;
     }
 
+    @XmlTransient
     public void setPerCountryAvgCostPerUnit(List<Map.Entry<String, BigDecimal>> perCountryAvgCost) {
         this.perCountryAvgCostPerUnit = perCountryAvgCost;
     }
