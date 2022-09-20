@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<?xml-model href="../xsd/Tool.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<Tools>
+    <Tool>
+        <id>1</id>
+        <name>Digger</name>
+    </Tool>
+    <Tool>
+        <id>2</id>
+        <name>Crane</name>
+    </Tool>
+    <Tool>
+        <id>3</id>
+        <name>Dirt Truck</name>
+    </Tool>
+</Tools>
