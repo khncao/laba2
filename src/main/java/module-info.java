@@ -11,6 +11,7 @@ module com.buildingcompany {
     exports com.buildingcompany.views;
     exports com.buildingcompany.services;
     exports com.buildingcompany.utility.exceptions;
+    exports com.buildingcompany.utility.adapters;
 
     opens com.buildingcompany.entities to jakarta.xml.bind;
 }

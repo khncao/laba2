@@ -52,8 +52,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        logger.info("SAX:");
-        testXmlParser(new XMLParserSAXImpl());
         logger.info("JAXB:");
         testXmlParser(new XMLParserJAXBImpl());
         launch();
@@ -70,12 +68,12 @@ public class App extends Application {
 
         var addresses = xmlParser.parse("Address", Address.class);
         logger.info(addresses.size() == 4);
+        addresses.stream().forEach(t -> logger.info(t.toString()));
 
         var materials = xmlParser.parse("Material", Material.class);
         logger.info(materials.size() == 3);
         
         var tools = xmlParser.parse("Tool", Tool.class);
         logger.info(tools.size() == 3);
-        tools.stream().forEach(t -> logger.info(t.toString()));
     }
 }
