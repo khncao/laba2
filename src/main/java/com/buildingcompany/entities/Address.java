@@ -128,7 +128,8 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address [id=" + id + ", city=" + city + ", country=" + country + ", line1=" + line1 + ", line2=" + line2 + ", line3="
+        return "Address [id=" + id + ", city=" + city + ", country=" + country + ", line1=" + line1 + ", line2=" + line2
+                + ", line3="
                 + line3 + ", zipCode=" + zipCode + "]";
     }
 }
