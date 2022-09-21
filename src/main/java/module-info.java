@@ -3,6 +3,7 @@ module com.buildingcompany {
     requires transitive java.sql;
     requires org.apache.logging.log4j;
     requires jakarta.xml.bind;
+    requires com.fasterxml.jackson.databind;
 
     exports com.buildingcompany;
     exports com.buildingcompany.dao;
@@ -13,5 +14,5 @@ module com.buildingcompany {
     exports com.buildingcompany.utility.exceptions;
     exports com.buildingcompany.utility.adapters;
 
-    opens com.buildingcompany.entities to jakarta.xml.bind;
+    opens com.buildingcompany.entities to jakarta.xml.bind, com.fasterxml.jackson.databind;
 }

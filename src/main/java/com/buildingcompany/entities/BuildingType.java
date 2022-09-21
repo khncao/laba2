@@ -4,20 +4,31 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.buildingcompany.utility.BuildingTypeAmounts;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "BuildingType")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class BuildingType {
+    @JsonProperty
     private int id;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private BigDecimal baseCost;
+    @JsonProperty
     private BigDecimal minFoundationSqrMeters;
+    @JsonProperty
     private BigDecimal maxFoundationSqrMeters;
+    @JsonProperty
     private List<BuildingTypeAmounts<Material>> requiredMaterialAmounts;
+    @JsonProperty
     private List<BuildingTypeAmounts<Tool>> requiredToolRentalHours;
+    @JsonProperty
     private List<BuildingTypeAmounts<String>> requiredLaborRoleHours;
 
     public BuildingType() {
