@@ -1,0 +1,1 @@
+[{"id":19,"name":"TestBuildingType1","baseCost":0,"minFoundationSqrMeters":0,"maxFoundationSqrMeters":0,"requiredMaterialAmounts":[{"object":{"id":4,"name":"TestMat"},"foundationAmountPerProjectSqrMeter":0,"amountPerProjectSqrMeter":0,"amountBase":0}],"requiredToolRentalHours":[],"requiredLaborRoleHours":[]}]

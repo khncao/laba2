@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.entities.BuildingType;
+import com.buildingcompany.entities.BuildingTypeAmounts;
 import com.buildingcompany.entities.Tool;
-import com.buildingcompany.utility.BuildingTypeAmounts;
 
 public class CalculateBuildTimeService implements ICalculateBuildTime {
     private final static float baseTimeHours = 40f;

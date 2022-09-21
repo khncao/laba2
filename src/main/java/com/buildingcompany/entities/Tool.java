@@ -5,17 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "Tool")
+@JsonInclude(Include.NON_EMPTY)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Tool {
+    @JsonProperty
     private int id;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private BigDecimal capacityCubicMeters;
+    @JsonProperty
     private BigDecimal maxLoadKg;
+    @JsonProperty
     private BigDecimal weightKg;
+    @JsonProperty
     private List<Map.Entry<String, BigDecimal>> perCountryAvgCostPerRentalHour;
 
     public Tool() {

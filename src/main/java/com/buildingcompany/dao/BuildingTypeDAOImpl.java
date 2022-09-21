@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.buildingcompany.entities.BuildingType;
+import com.buildingcompany.entities.BuildingTypeAmounts;
 import com.buildingcompany.entities.Material;
 import com.buildingcompany.entities.Tool;
 import com.buildingcompany.services.IConnectionPool;
-import com.buildingcompany.utility.BuildingTypeAmounts;
 
 public class BuildingTypeDAOImpl implements BuildingTypeDAO {
     private static Logger logger = LogManager.getLogger(BuildingTypeDAOImpl.class);
