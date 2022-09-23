@@ -1,24 +1,28 @@
 <?xml version = "1.0" encoding="UTF-8"?>
-<?xml-model href="../xsd/Address.xml" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="../xsd/Address.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <Addresses>
     <Address>
         <id>1</id>
         <country>USA</country>
         <city>Los Angeles</city>
+        <lastUpdated>2022-09-20T19:30:00Z</lastUpdated>
     </Address>
     <Address>
         <id>2</id>
         <country>Brazil</country>
         <city>Sao Paulo</city>
+        <lastUpdated>2022-09-20T19:30:00Z</lastUpdated>
     </Address>
     <Address>
         <id>3</id>
         <country>Japan</country>
         <city>Tokyo</city>
+        <lastUpdated>2022-09-20T19:30:00Z</lastUpdated>
     </Address>
     <Address>
         <id>4</id>
         <country>Ukraine</country>
         <city>Kiev</city>
+        <lastUpdated>2022-09-20T19:30:00Z</lastUpdated>
     </Address>
 </Addresses>

@@ -10,6 +10,7 @@
                 <xs:element name="country" type="xs:string"/>
                 <xs:element name="city" type="xs:string"/>
                 <xs:element name="zipcode" type="xs:string" minOccurs="0"/>
+                <xs:element name="lastUpdated" type="xs:dateTime"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

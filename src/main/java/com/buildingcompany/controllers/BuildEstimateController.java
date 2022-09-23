@@ -43,7 +43,9 @@ public class BuildEstimateController {
         logger.info("Calculation Input: [" + address.toString() + "], [Type: " + buildingTypeName + "], [M^2: " + foundationSqrMeters + "], [Floors: " + numFloors + ']');
         
         BuildingType buildingType = buildingTypeDAO.getBuildingType(buildingTypeName);
-        buildingTypeDAO.getBuildingTypeRequirements(buildingType);
+        buildingTypeDAO.getMaterialRequirements(buildingType);
+        buildingTypeDAO.getToolRequirements(buildingType);
+        buildingTypeDAO.getLaborRequirements(buildingType);
         
         StringBuilder timeCalcLog = new StringBuilder();
         StringBuilder costCalcLog = new StringBuilder();
@@ -61,7 +63,9 @@ public class BuildEstimateController {
 
     public void testPrintReqResources(String buildingTypeName) {
         BuildingType buildingType = buildingTypeDAO.getBuildingType(buildingTypeName);
-        buildingTypeDAO.getBuildingTypeRequirements(buildingType);
+        buildingTypeDAO.getMaterialRequirements(buildingType);
+        buildingTypeDAO.getToolRequirements(buildingType);
+        buildingTypeDAO.getLaborRequirements(buildingType);
         logger.info("Requirements: ");
         logger.info("Mats:");
         buildingType.getRequiredMaterialAmounts().stream()

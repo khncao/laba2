@@ -1,7 +1,12 @@
 package com.buildingcompany.entities;
 
+import java.util.Date;
+
+import com.buildingcompany.utility.adapters.XmlDateTimeAdapter;
+
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "Address")
 public class Address {
@@ -19,11 +24,13 @@ public class Address {
      */
     private String city;
     private String zipCode;
+    private Date lastUpdated;
 
     public Address() {
     }
 
     public Address(int id, String line1, String line2, String line3, String country, String city, String zipCode) {
+        this.id = id;
         this.line1 = line1;
         this.line2 = line2;
         this.line3 = line3;
@@ -95,9 +102,19 @@ public class Address {
         this.zipCode = zipCode;
     }
 
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    @XmlElement
+    @XmlJavaTypeAdapter(XmlDateTimeAdapter.class)
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
     @Override
     public String toString() {
-        return "Address [city=" + city + ", country=" + country + ", line1=" + line1 + ", line2=" + line2 + ", line3="
-                + line3 + ", zipCode=" + zipCode + "]";
+        return "Address [city=" + city + ", country=" + country + ", id=" + id + ", lastUpdated=" + lastUpdated
+                + ", line1=" + line1 + ", line2=" + line2 + ", line3=" + line3 + ", zipCode=" + zipCode + "]";
     }
 }

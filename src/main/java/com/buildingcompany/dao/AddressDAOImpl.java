@@ -35,15 +35,18 @@ public class AddressDAOImpl implements AddressDAO {
         Connection conn = null;
         try {
             conn = connectionPool.getConnection();
+            ResultSet rs = null;
             try(PreparedStatement statement = conn.prepareStatement(query)) {
                 statement.setInt(1, primaryKey);
-                ResultSet rs = statement.executeQuery();
+                rs = statement.executeQuery();
                 if(rs.next()) {
                     address = parseAddressAllColumnsJoinName(rs);
                 }
-            } catch (SQLException e) {
-                logger.error(e.toString());
+            } finally {
+                if(rs != null) rs.close();
             }
+        } catch (SQLException e) {
+            logger.error(e);
         } finally {
             connectionPool.freeConnection(conn);
         }
@@ -57,17 +60,20 @@ public class AddressDAOImpl implements AddressDAO {
         Connection conn = null;
         try {
             conn = connectionPool.getConnection();
+            ResultSet rs = null;
             try(PreparedStatement statement = conn.prepareStatement(query)) {
                 statement.setString(1, countryName);
                 statement.setString(2, cityName);
-                ResultSet rs = statement.executeQuery();
+                rs = statement.executeQuery();
                 while(rs.next()) {
                     Address address = parseAddressAllColumnsJoinName(rs);
                     addresses.add(address);
                 }
-            } catch (SQLException e) {
-                logger.error(e.toString());
+            } finally { 
+                if(rs != null) rs.close();
             }
+        } catch (SQLException e) {
+            logger.error(e.toString());
         } finally {
             connectionPool.freeConnection(conn);
         }
@@ -80,16 +86,19 @@ public class AddressDAOImpl implements AddressDAO {
         Connection conn = null;
         try {
             conn = connectionPool.getConnection();
+            ResultSet rs = null;
             try(PreparedStatement statement = conn.prepareStatement(query)) {
                 statement.setString(1, countryName);
-                ResultSet rs = statement.executeQuery();
+                rs = statement.executeQuery();
                 while(rs.next()) {
                     Address address = parseAddressAllColumnsJoinName(rs);
                     addresses.add(address);
                 }
-            } catch (SQLException e) {
-                logger.error(e.toString());
+            } finally {
+                if(rs != null) rs.close();
             }
+        } catch (SQLException e) {
+            logger.error(e.toString());
         } finally {
             connectionPool.freeConnection(conn);
         }
@@ -142,15 +151,18 @@ public class AddressDAOImpl implements AddressDAO {
         Connection conn = null;
         try {
             conn = connectionPool.getConnection();
+            ResultSet rs = null;
             try(PreparedStatement statement = conn.prepareStatement(query)) {
-                ResultSet rs = statement.executeQuery();
+                rs = statement.executeQuery();
                 while(rs.next()) {
                     Address address = parseAddressAllColumnsJoinName(rs);
                     addresses.add(address);
                 }
-            } catch (SQLException e) {
-                logger.error(e.toString());
+            } finally {
+                if(rs != null) rs.close();
             }
+        } catch (SQLException e) {
+                logger.error(e.toString());
         } finally {
             connectionPool.freeConnection(conn);
         }
