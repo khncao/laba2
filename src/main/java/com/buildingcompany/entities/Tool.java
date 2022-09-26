@@ -3,7 +3,8 @@ package com.buildingcompany.entities;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import com.buildingcompany.utility.KeyValuePair;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -16,7 +17,7 @@ public class Tool {
     private BigDecimal capacityCubicMeters;
     private BigDecimal maxLoadKg;
     private BigDecimal weightKg;
-    private List<Map.Entry<String, BigDecimal>> perCountryAvgCostPerRentalHour;
+    private List<KeyValuePair<String, BigDecimal>> perCountryAvgCostPerRentalHour;
 
     public Tool() {
     }
@@ -75,18 +76,19 @@ public class Tool {
         this.weightKg = weightKg;
     }
 
-    public List<Map.Entry<String, BigDecimal>> getPerCountryAvgCostPerRentalHour() {
+    public List<KeyValuePair<String, BigDecimal>> getPerCountryAvgCostPerRentalHour() {
         return perCountryAvgCostPerRentalHour;
     }
 
     @XmlTransient
-    public void setPerCountryAvgCostPerRentalHour(List<Map.Entry<String, BigDecimal>> perCountryAvgCost) {
+    public void setPerCountryAvgCostPerRentalHour(List<KeyValuePair<String, BigDecimal>> perCountryAvgCost) {
         this.perCountryAvgCostPerRentalHour = perCountryAvgCost;
     }
 
     @Override
     public String toString() {
         return "Tool [id=" + id + ", capacityCubicMeters=" + capacityCubicMeters + ", maxLoadKg=" + maxLoadKg
-                + ", name=" + name + ", weightKg=" + weightKg + "]";
+                + ", name=" + name + ", weightKg=" + weightKg 
+                + ", perCountryAvgCostPerRentalHour=" + perCountryAvgCostPerRentalHour + "]";
     }
 }

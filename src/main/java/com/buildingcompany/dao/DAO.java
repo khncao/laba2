@@ -2,7 +2,7 @@ package com.buildingcompany.dao;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
+public interface DAO<T> {
     void create(T t);
     List<T> readAll();
     void update(T t);

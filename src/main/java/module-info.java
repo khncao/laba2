@@ -3,6 +3,7 @@ module com.buildingcompany {
     requires transitive java.sql;
     requires org.apache.logging.log4j;
     requires jakarta.xml.bind;
+    requires org.mybatis;
 
     exports com.buildingcompany;
     exports com.buildingcompany.dao;
@@ -10,8 +11,11 @@ module com.buildingcompany {
     exports com.buildingcompany.controllers;
     exports com.buildingcompany.views;
     exports com.buildingcompany.services;
+    exports com.buildingcompany.utility;
     exports com.buildingcompany.utility.exceptions;
     exports com.buildingcompany.utility.adapters;
 
     opens com.buildingcompany.entities to jakarta.xml.bind;
+    opens com.buildingcompany.dao.mybatis.mappers;
+    opens properties;
 }

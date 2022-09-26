@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buildingcompany.dao.mybatis.mappers.ToolMapper">
+  <sql id="toolCols">${alias}.id as "id",${alias}.name as "name",${alias}.capacity_cubicmeters as "capacityCubicMeters",${alias}.max_load_kg as "maxLoadKg",${alias}.weight_kg as "weightKg"</sql>
+
+  <resultMap id="toolResult" type="Tool">
+    <id property="id" column="id"/>
+    <collection property="perCountryAvgCostPerRentalHour" ofType="com.buildingcompany.utility.KeyValuePair" column="id" select="selectPerCountryAvgCosts"></collection>
+  </resultMap>
+
+  <select id="selectPerCountryAvgCosts" resultType="com.buildingcompany.utility.KeyValuePair">
+    SELECT country.name as "key",
+           avg_daily_rental_rate as "value"
+    FROM country_tool_cost
+    JOIN country ON country.id=country_id
+    WHERE tool_id=#{id}
+  </select>
+
+  <select id="selectTool" resultType="Tool" resultMap="toolResult">
+    SELECT 
+      <include refid="toolCols"><property name="alias" value="tool"/></include>
+    FROM tool WHERE tool.id=#{id}
+  </select>
+
+</mapper>

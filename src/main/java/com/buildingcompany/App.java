@@ -11,10 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.buildingcompany.controllers.BuildEstimateController;
-import com.buildingcompany.entities.*;
-import com.buildingcompany.services.IXMLParser;
-import com.buildingcompany.services.XMLParserJAXBImpl;
-import com.buildingcompany.services.XMLParserSAXImpl;
 import com.buildingcompany.views.BuildEstimateView;
 import com.buildingcompany.views.LoginView;
 
@@ -24,13 +20,13 @@ import com.buildingcompany.views.LoginView;
 public class App extends Application {
     private static Logger logger = LogManager.getLogger(App.class);
     private static Scene mainScene;
-    // TODO(khncao): move to view manager service class if plan to expand
     private static LoginView loginView = new LoginView();
     private static BuildEstimateView buildEstimateView;
 
     @Override
     public void start(Stage stage) throws IOException {
-        mainScene = new Scene(loginView.getParent(), 400, 400);
+        buildEstimateView = new BuildEstimateView(new BuildEstimateController());
+        mainScene = new Scene(buildEstimateView.getParent(), 400, 400);
         stage.setTitle("Building Company");
         stage.setScene(mainScene);
         stage.show();
@@ -52,28 +48,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        logger.info("JAXB:");
-        testXmlParser(new XMLParserJAXBImpl());
         launch();
-    }
-
-    private static void testXmlParser(IXMLParser xmlParser) {
-        boolean btypeValid = xmlParser.validate("BuildingType", "BuildingType", BuildingType.class);
-        logger.info(btypeValid);
-        boolean toolValid = xmlParser.validate("Tool", "Tool", Tool.class);
-        logger.info(toolValid);
-
-        var buildingTypes = xmlParser.parse("BuildingType", BuildingType.class);
-        logger.info(buildingTypes.size() == 3);
-
-        var addresses = xmlParser.parse("Address", Address.class);
-        logger.info(addresses.size() == 4);
-        addresses.stream().forEach(t -> logger.info(t.toString()));
-
-        var materials = xmlParser.parse("Material", Material.class);
-        logger.info(materials.size() == 3);
-        
-        var tools = xmlParser.parse("Tool", Tool.class);
-        logger.info(tools.size() == 3);
     }
 }

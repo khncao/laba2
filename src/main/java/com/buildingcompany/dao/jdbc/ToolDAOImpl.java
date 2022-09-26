@@ -1,4 +1,4 @@
-package com.buildingcompany.dao;
+package com.buildingcompany.dao.jdbc;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -11,19 +11,24 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.buildingcompany.dao.ToolDAO;
 import com.buildingcompany.entities.Tool;
 import com.buildingcompany.services.IConnectionPool;
+import com.buildingcompany.utility.KeyValuePair;
 
-public class ToolDAOImpl implements ToolDAO {
+public class ToolDAOImpl extends DAOImpl implements ToolDAO {
     private static Logger logger = LogManager.getLogger(ToolDAOImpl.class);
-    private IConnectionPool connectionPool;
     private final String ALL_COLS = " name, capacity_cubicmeters, max_load_kg, weight_kg ";
     private final String SELECT_COUNTRY_AVG_COST_NAME_BY_TOOL_ID = "SELECT country.name, avg_daily_rental_rate\n" 
     + "FROM country_tool_cost JOIN country ON country_tool_cost.country_id = country.id\n"
     + "WHERE country_tool_cost.tool_id = ?;";
+
+    public ToolDAOImpl() {
+        super();
+    }
     
     public ToolDAOImpl(IConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+        super(connectionPool);
     }
 
     public Tool getToolById(int primaryKey, boolean populateCountryAvgCost) {
@@ -68,11 +73,11 @@ public class ToolDAOImpl implements ToolDAO {
                 rs = statement.executeQuery();
                 tool.getPerCountryAvgCostPerRentalHour().clear();
                 while(rs.next()) {
-                    Map.Entry<String, BigDecimal> entry = new AbstractMap.SimpleEntry<>(
-                        rs.getString("country.name"),
-                        rs.getBigDecimal("avg_daily_rental_rate")
+                    tool.getPerCountryAvgCostPerRentalHour().add(
+                        new KeyValuePair<String,BigDecimal>(
+                            rs.getString("country.name"),
+                            rs.getBigDecimal("avg_daily_rental_rate"))
                     );
-                    tool.getPerCountryAvgCostPerRentalHour().add(entry);
                 }
             } finally {
                 if(rs != null) rs.close();

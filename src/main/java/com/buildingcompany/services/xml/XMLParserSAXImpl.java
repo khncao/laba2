@@ -1,4 +1,4 @@
-package com.buildingcompany.services;
+package com.buildingcompany.services.xml;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.buildingcompany.dao.sax.GenericCollectionHandler;
-import com.buildingcompany.utility.Resources;
+import com.buildingcompany.utility.ResourcePaths;
 
 public class XMLParserSAXImpl implements IXMLParser {
     private static Logger logger = LogManager.getLogger(XMLParserSAXImpl.class);
@@ -45,7 +45,7 @@ public class XMLParserSAXImpl implements IXMLParser {
             Class c = Class.forName(handlerModulePath + entityClass.getSimpleName() + "Handler");
             GenericCollectionHandler<T> handler = (GenericCollectionHandler<T>)c.getDeclaredConstructor().newInstance();
             SAXParser saxParser = parserFactory.newSAXParser();
-            saxParser.parse(Resources.xmlPath + xmlFileNameNoExt + ".xml", handler);
+            saxParser.parse(ResourcePaths.xmlPath + xmlFileNameNoExt + ".xml", handler);
             return handler.getResults();
         } catch(ClassNotFoundException e) {
             logger.error(e.toString());
@@ -63,9 +63,9 @@ public class XMLParserSAXImpl implements IXMLParser {
 
     public <T> boolean validate(String xmlFileNameNoExt, String xsdFileNameNoExt, Class<T> entityClass) {
         try {
-            schema = schemaFactory.newSchema(new File(Resources.xsdPath + xsdFileNameNoExt + ".xsd"));
+            schema = schemaFactory.newSchema(new File(ResourcePaths.xsdPath + xsdFileNameNoExt + ".xsd"));
             Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(Resources.xmlPath + xmlFileNameNoExt + ".xml")));
+            validator.validate(new StreamSource(new File(ResourcePaths.xmlPath + xmlFileNameNoExt + ".xml")));
         } catch(SAXException e) {
             logger.error(e.toString());
             return false;

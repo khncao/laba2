@@ -3,6 +3,7 @@ package com.buildingcompany.entities;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.buildingcompany.utility.BuildingTypeAmounts;
 
@@ -92,11 +93,42 @@ public class BuildingType {
         return requiredLaborRoleHours;
     }
 
+    public void setRequiredMaterialAmounts(List<BuildingTypeAmounts<Material>> requiredMaterialAmounts) {
+        this.requiredMaterialAmounts = requiredMaterialAmounts;
+    }
+
+    public void setRequiredToolRentalHours(List<BuildingTypeAmounts<Tool>> requiredToolRentalHours) {
+        this.requiredToolRentalHours = requiredToolRentalHours;
+    }
+
+    public void setRequiredLaborRoleHours(List<BuildingTypeAmounts<String>> requiredLaborRoleHours) {
+        this.requiredLaborRoleHours = requiredLaborRoleHours;
+    }
+
     @Override
     public String toString() {
-        return "BuildingType [baseCost=" + baseCost + ", id=" + id + ", maxFoundationSqrMeters="
-                + maxFoundationSqrMeters + ", minFoundationSqrMeters=" + minFoundationSqrMeters + ", name=" + name
-                + ", requiredLaborRoleHours=" + requiredLaborRoleHours + ", requiredMaterialAmounts="
-                + requiredMaterialAmounts + ", requiredToolRentalHours=" + requiredToolRentalHours + "]";
+        String out = "BuildingType [baseCost=" + baseCost + ", id=" + id 
+            + ", maxFoundationSqrMeters=" + maxFoundationSqrMeters 
+            + ", minFoundationSqrMeters=" + minFoundationSqrMeters 
+            + ", name=" + name;
+        if(requiredLaborRoleHours != null) {
+            out += "\nrequiredLaborRoleHours=\n" 
+                + requiredLaborRoleHours.stream()
+                    .map(i->i.toString())
+                    .collect(Collectors.joining("\n", "    ", ""));
+        }
+        if(requiredMaterialAmounts != null) {
+            out += "\nrequiredMaterialAmounts=\n" 
+                + requiredMaterialAmounts.stream()
+                    .map(i->i.toString())
+                    .collect(Collectors.joining("\n"));
+        }
+        if(requiredToolRentalHours != null) {
+            out += "\nrequiredToolRentalHours=\n" 
+                + requiredToolRentalHours.stream()
+                    .map(i->i.toString())
+                    .collect(Collectors.joining("\n", "    ", ""));
+        }
+        return out + "]";
     }
 }

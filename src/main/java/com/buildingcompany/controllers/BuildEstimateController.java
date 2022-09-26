@@ -6,35 +6,24 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.buildingcompany.dao.BuildingTypeDAOImpl;
 import com.buildingcompany.dao.BuildingTypeDAO;
-import com.buildingcompany.dao.MaterialDAO;
-import com.buildingcompany.dao.ToolDAO;
-import com.buildingcompany.dao.ToolDAOImpl;
-import com.buildingcompany.dao.MaterialDAOImpl;
+// import com.buildingcompany.dao.jdbc.BuildingTypeDAOImpl;
+import com.buildingcompany.dao.mybatis.BuildingTypeDAOImpl;
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.entities.BuildingType;
 import com.buildingcompany.services.CalculateBuildCostService;
 import com.buildingcompany.services.CalculateBuildTimeService;
 import com.buildingcompany.services.ICalculateBuildCost;
 import com.buildingcompany.services.ICalculateBuildTime;
-import com.buildingcompany.services.IConnectionPool;
-import com.buildingcompany.services.MySqlConnection;
 
 public class BuildEstimateController {
     private static Logger logger = LogManager.getLogger(BuildEstimateController.class);
     private ICalculateBuildTime calculateBuildTime;
     private ICalculateBuildCost calculateBuildCost;
-    private IConnectionPool connectionPool;
     private BuildingTypeDAO buildingTypeDAO;
-    private MaterialDAO materialDAO;
-    private ToolDAO toolDAO;
 
     public BuildEstimateController() {
-        connectionPool = MySqlConnection.getInstance();
-        materialDAO = new MaterialDAOImpl(connectionPool);
-        toolDAO = new ToolDAOImpl(connectionPool);
-        buildingTypeDAO = new BuildingTypeDAOImpl(connectionPool, materialDAO, toolDAO);
+        buildingTypeDAO = new BuildingTypeDAOImpl();
         calculateBuildCost = new CalculateBuildCostService();
         calculateBuildTime = new CalculateBuildTimeService();
     }
@@ -45,7 +34,7 @@ public class BuildEstimateController {
         BuildingType buildingType = buildingTypeDAO.getBuildingType(buildingTypeName);
         buildingTypeDAO.getMaterialRequirements(buildingType);
         buildingTypeDAO.getToolRequirements(buildingType);
-        buildingTypeDAO.getLaborRequirements(buildingType);
+        // buildingTypeDAO.getLaborRequirements(buildingType);
         
         StringBuilder timeCalcLog = new StringBuilder();
         StringBuilder costCalcLog = new StringBuilder();

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buildingcompany.dao.mybatis.mappers.MaterialMapper">
+  <sql id="materialCols">${alias}.id as "id",${alias}.name as "name",${alias}.length_meters as "lengthMeters",${alias}.width_meters as "widthMeters",${alias}.height_meters as "heightMeters",${alias}.weight_kg as "weightKg"</sql>
+
+  <resultMap id="materialResult" type="Material">
+    <id property="id" column="id"/>
+    <collection property="perCountryAvgCostPerUnit" ofType="com.buildingcompany.utility.KeyValuePair" column="id" select="selectPerCountryAvgCosts"></collection>
+  </resultMap>
+
+  <select id="selectPerCountryAvgCosts" resultType="com.buildingcompany.utility.KeyValuePair">
+    SELECT country.name as "key",
+           avg_cost_per_amount as "value"
+    FROM country_material_cost
+    JOIN country ON country.id=country_id
+    WHERE material_id=#{id}
+  </select>
+
+  <select id="selectMaterial" resultType="Material" resultMap="materialResult">
+    SELECT 
+      <include refid="materialCols"><property name="alias" value="material"/></include>
+    FROM material WHERE material.id=#{id}
+  </select>
+
+</mapper>

@@ -2,6 +2,10 @@
 # Building Company
 Estimate how long it will take and how much it will cost to build different types of buildings. Tool to approximate construction cost based on set of inputs.  
 
+### Notes:
+- Currently, calculations and complex queries only vertical integrated with building type material and tool requirements
+- Swap JDBC and MyBatis DAO implementations by changing import in BuildEstimateController
+
 ### Todo:
 - Use more DAOs in services to run more complex calculations using queried data
 - Entity/model for employee role average hourly cost per country
