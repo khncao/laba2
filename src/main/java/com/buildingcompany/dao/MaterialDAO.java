@@ -3,7 +3,7 @@ package com.buildingcompany.dao;
 import com.buildingcompany.entities.Material;
 
 public interface MaterialDAO {
-    Material getMaterialById(int primaryKey, boolean populateCountryAvgCost);
+    Material getMaterialById(int primaryKey);
 
     /**
      * Inplace populate list of per country costs per material. Clears existing before running

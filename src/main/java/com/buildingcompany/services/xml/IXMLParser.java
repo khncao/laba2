@@ -1,4 +1,4 @@
-package com.buildingcompany.services;
+package com.buildingcompany.services.xml;
 
 import java.util.List;
 

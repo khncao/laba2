@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.buildingcompany.utility.Resources;
+import com.buildingcompany.utility.ResourcePaths;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,7 +20,7 @@ public class JsonJacksonImpl implements IJsonProcessor {
     public <T> List<T> parse(String fileNameNoExt, Class<T> entityClass) {
         ObjectMapper om = new ObjectMapper();
         try {
-            return om.readValue(new File(Resources.jsonPath + fileNameNoExt + ".json"), new TypeReference<List<T>>(){});
+            return om.readValue(new File(ResourcePaths.jsonPath + fileNameNoExt + ".json"), new TypeReference<List<T>>(){});
         } catch (StreamReadException e) {
             logger.error(e);
         } catch (DatabindException e) {
@@ -34,7 +34,7 @@ public class JsonJacksonImpl implements IJsonProcessor {
     public <T> void write(String fileNameNoExt, List<T> instances) {
         ObjectMapper om = new ObjectMapper();
         try {
-            om.writeValue(new File(Resources.jsonPath + fileNameNoExt + ".json"), instances);
+            om.writeValue(new File(ResourcePaths.jsonPath + fileNameNoExt + ".json"), instances);
         } catch (JsonProcessingException e) {
             logger.error(e);
         } catch (IOException e) {

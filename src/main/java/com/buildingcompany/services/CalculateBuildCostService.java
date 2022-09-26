@@ -7,8 +7,6 @@ import com.buildingcompany.entities.Address;
 import com.buildingcompany.entities.BuildingType;
 
 public class CalculateBuildCostService implements ICalculateBuildCost {
-    private final static float baseCostUsd = 500f;
-
     public float calculate(StringBuilder calcLog, Address address, BuildingType buildingType, float foundationSqrMeters, int numFloors) {
         float sqrMeters = foundationSqrMeters * numFloors;
 
@@ -19,7 +17,8 @@ public class CalculateBuildCostService implements ICalculateBuildCost {
         // TODO(khncao): to stream
         for(var m : buildingType.getRequiredMaterialAmounts()) {
             var material = m.getObject();
-            var countryAvgCost = material.getPerCountryAvgCostPerUnit().stream()
+            var countryAvgCost = material.getPerCountryAvgCostPerUnit()
+                .stream()
                 .filter(entry -> entry.getKey().trim().equalsIgnoreCase(
                                     address.getCountry().trim()))
                 .findAny().orElse(null);

@@ -3,7 +3,8 @@ package com.buildingcompany.entities;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import com.buildingcompany.utility.KeyValuePair;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -31,8 +32,7 @@ public class Material {
     private BigDecimal heightMeters;
     @JsonProperty
     private BigDecimal weightKg;
-    @JsonProperty
-    private List<Map.Entry<String, BigDecimal>> perCountryAvgCostPerUnit;
+    private List<KeyValuePair<String, BigDecimal>> perCountryAvgCostPerUnit;
 
     public Material() {
     }
@@ -102,18 +102,21 @@ public class Material {
         this.weightKg = weightKg;
     }
 
-    public List<Map.Entry<String, BigDecimal>> getPerCountryAvgCostPerUnit() {
+    public List<KeyValuePair<String, BigDecimal>> getPerCountryAvgCostPerUnit() {
         return perCountryAvgCostPerUnit;
     }
 
     @XmlTransient
-    public void setPerCountryAvgCostPerUnit(List<Map.Entry<String, BigDecimal>> perCountryAvgCost) {
+    public void setPerCountryAvgCostPerUnit(List<KeyValuePair<String, BigDecimal>> perCountryAvgCost) {
         this.perCountryAvgCostPerUnit = perCountryAvgCost;
     }
 
     @Override
     public String toString() {
-        return "Material [id=" + id + ", heightMeters=" + heightMeters + ",  lengthMeters=" + lengthMeters + ", name="
-                + name + ", weightKg=" + weightKg + ", widthMeters=" + widthMeters + "]";
+        return "Material [heightMeters=" + heightMeters + ", id=" + id + ", lengthMeters=" + lengthMeters + ", name="
+                + name + ", weightKg=" + weightKg
+                + ", widthMeters=" + widthMeters
+                + ", perCountryAvgCostPerUnit=" + perCountryAvgCostPerUnit + "]";
     }
+
 }

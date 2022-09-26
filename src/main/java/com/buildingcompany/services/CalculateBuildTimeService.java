@@ -8,8 +8,6 @@ import com.buildingcompany.entities.BuildingTypeAmounts;
 import com.buildingcompany.entities.Tool;
 
 public class CalculateBuildTimeService implements ICalculateBuildTime {
-    private final static float baseTimeHours = 40f;
-
     public float calculate(StringBuilder calcLog, Address address, BuildingType buildingType, float foundationSqrMeters, int numFloors) {
         float sqrMeters = foundationSqrMeters * numFloors;
 

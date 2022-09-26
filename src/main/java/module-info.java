@@ -4,6 +4,7 @@ module com.buildingcompany {
     requires org.apache.logging.log4j;
     requires jakarta.xml.bind;
     requires com.fasterxml.jackson.databind;
+    requires org.mybatis;
 
     exports com.buildingcompany;
     exports com.buildingcompany.dao;
@@ -11,8 +12,11 @@ module com.buildingcompany {
     exports com.buildingcompany.controllers;
     exports com.buildingcompany.views;
     exports com.buildingcompany.services;
+    exports com.buildingcompany.utility;
     exports com.buildingcompany.utility.exceptions;
     exports com.buildingcompany.utility.adapters;
 
     opens com.buildingcompany.entities to jakarta.xml.bind, com.fasterxml.jackson.databind;
+    opens com.buildingcompany.dao.mybatis.mappers;
+    opens properties;
 }

@@ -68,8 +68,8 @@ public class BuildingTypeAmounts<T> {
 
     @Override
     public String toString() {
-        return "BuildingTypeAmounts [amountBase=" + amountBase + ", amountPerProjectSqrMeter="
+        return "BuildingTypeAmounts [object=" + object + ", amountPerProjectSqrMeter="
                 + amountPerProjectSqrMeter + ", foundationAmountPerProjectSqrMeter="
-                + foundationAmountPerProjectSqrMeter + ", object=" + object + "]";
+                + foundationAmountPerProjectSqrMeter + ", amountBase=" + amountBase + "]";
     }
 }
