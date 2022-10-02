@@ -7,12 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.buildingcompany.dao.BuildingTypeDAO;
-// import com.buildingcompany.dao.jdbc.BuildingTypeDAOImpl;
-import com.buildingcompany.dao.mybatis.BuildingTypeDAOImpl;
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.entities.BuildingType;
 import com.buildingcompany.services.CalculateBuildCostService;
 import com.buildingcompany.services.CalculateBuildTimeService;
+import com.buildingcompany.services.DAOFactory;
 import com.buildingcompany.services.ICalculateBuildCost;
 import com.buildingcompany.services.ICalculateBuildTime;
 
@@ -23,7 +22,7 @@ public class BuildEstimateController {
     private BuildingTypeDAO buildingTypeDAO;
 
     public BuildEstimateController() {
-        buildingTypeDAO = new BuildingTypeDAOImpl();
+        buildingTypeDAO = DAOFactory.<BuildingTypeDAO>getDaoImpl(BuildingType.class, "mybatis");
         calculateBuildCost = new CalculateBuildCostService();
         calculateBuildTime = new CalculateBuildTimeService();
     }
