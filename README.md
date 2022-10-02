@@ -23,6 +23,8 @@ Estimate how long it will take and how much it will cost to build different type
 	- xmlParse: take file path as input
 
 ### Changelog:
+- DAOFactory to get DAOImpl instance for desired entity and impl
+- MyBatis impl; refactor to allow swapping to and from JDBC impl
 - Switch to DAO pattern for entity database queries; implement simple framework
 - Migrate to service interfaces for connection pool, calculating time/cost
 - Move project to new repo laba2
