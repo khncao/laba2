@@ -18,14 +18,17 @@ import com.buildingcompany.views.LoginView;
  * JavaFX App
  */
 public class App extends Application {
-    private static Logger logger = LogManager.getLogger(App.class);
+    private final static Logger logger = LogManager.getLogger(App.class);
     private static Scene mainScene;
     private static LoginView loginView = new LoginView();
+    private static BuildEstimateController buildEstimateController;
     private static BuildEstimateView buildEstimateView;
 
     @Override
     public void start(Stage stage) throws IOException {
-        buildEstimateView = new BuildEstimateView(new BuildEstimateController());
+        buildEstimateController = new BuildEstimateController();
+        buildEstimateView = new BuildEstimateView(buildEstimateController);
+        buildEstimateView.addPropertyChangeListener(buildEstimateController);
         mainScene = new Scene(buildEstimateView.getParent(), 400, 400);
         stage.setTitle("Building Company");
         stage.setScene(mainScene);
@@ -41,9 +44,6 @@ public class App extends Application {
     }
 
     public static void showLoggedInView() {
-        if(buildEstimateView == null) {
-            buildEstimateView = new BuildEstimateView(new BuildEstimateController());
-        }
         setViewParent(buildEstimateView.getParent());
     }
 

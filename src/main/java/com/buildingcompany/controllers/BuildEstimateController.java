@@ -1,5 +1,7 @@
 package com.buildingcompany.controllers;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import com.buildingcompany.services.DAOFactory;
 import com.buildingcompany.services.ICalculateBuildCost;
 import com.buildingcompany.services.ICalculateBuildTime;
 
-public class BuildEstimateController {
+public class BuildEstimateController implements PropertyChangeListener {
     private static Logger logger = LogManager.getLogger(BuildEstimateController.class);
     private ICalculateBuildTime calculateBuildTime;
     private ICalculateBuildCost calculateBuildCost;
@@ -47,6 +49,11 @@ public class BuildEstimateController {
             + "\nApprox. Time: " + days + " days and " + hours + " hours"
             + "\n" + timeCalcLog.toString();
         return output;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent ev) {
+        logger.info(this + " observed change " + ev.getSource() + " " + ev.getPropertyName() + ": " + ev.getOldValue() + " -> " + ev.getNewValue());
     }
 
     public void testPrintReqResources(String buildingTypeName) {
