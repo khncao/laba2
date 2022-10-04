@@ -1,14 +1,23 @@
-package com.buildingcompany.utility;
+package com.buildingcompany.entities;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 public class BuildingTypeAmounts<T> {
+    @JsonIdentityReference
+    @JsonIncludeProperties({"id", "name"})
     private T object;
     private BigDecimal foundationAmountPerProjectSqrMeter;
     private BigDecimal amountPerProjectSqrMeter;
     private BigDecimal amountBase;
 
-    public BuildingTypeAmounts(T object, BigDecimal foundationAmountPerProjectSqrMeter, BigDecimal amountPerProjectSqrMeter,
+    public BuildingTypeAmounts() {
+
+    }
+
+    public BuildingTypeAmounts(T object, BigDecimal foundationAmountPerProjectSqrMeter,
+            BigDecimal amountPerProjectSqrMeter,
             BigDecimal amountBase) {
         this.object = object;
         this.foundationAmountPerProjectSqrMeter = foundationAmountPerProjectSqrMeter;
@@ -25,7 +34,7 @@ public class BuildingTypeAmounts<T> {
     }
 
     public BigDecimal getFoundationAmountPerProjectSqrMeter() {
-        if(foundationAmountPerProjectSqrMeter == null) {
+        if (foundationAmountPerProjectSqrMeter == null) {
             return BigDecimal.ZERO;
         }
         return foundationAmountPerProjectSqrMeter;
@@ -36,7 +45,7 @@ public class BuildingTypeAmounts<T> {
     }
 
     public BigDecimal getAmountPerProjectSqrMeter() {
-        if(amountPerProjectSqrMeter == null) {
+        if (amountPerProjectSqrMeter == null) {
             return BigDecimal.ZERO;
         }
         return amountPerProjectSqrMeter;
@@ -47,7 +56,7 @@ public class BuildingTypeAmounts<T> {
     }
 
     public BigDecimal getAmountBase() {
-        if(amountBase == null) {
+        if (amountBase == null) {
             return BigDecimal.ZERO;
         }
         return amountBase;

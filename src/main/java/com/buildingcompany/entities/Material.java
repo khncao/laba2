@@ -5,18 +5,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "Material")
+@JsonInclude(Include.NON_EMPTY)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Material {
+    @JsonProperty
     private int id;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private BigDecimal lengthMeters;
+    @JsonProperty
     private BigDecimal widthMeters;
+    @JsonProperty
     private BigDecimal heightMeters;
+    @JsonProperty
     private BigDecimal weightKg;
+    @JsonProperty
     private List<Map.Entry<String, BigDecimal>> perCountryAvgCostPerUnit;
 
     public Material() {

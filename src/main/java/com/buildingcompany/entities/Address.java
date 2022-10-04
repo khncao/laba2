@@ -3,26 +3,40 @@ package com.buildingcompany.entities;
 import java.util.Date;
 
 import com.buildingcompany.utility.adapters.XmlDateTimeAdapter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "Address")
+@JsonInclude(Include.NON_EMPTY)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Address {
+    @JsonProperty
     private int id;
+    @JsonProperty
     private String line1;
+    @JsonProperty
     private String line2;
+    @JsonProperty
     private String line3;
     /**
      * FK country table, country.name
      */
+    @JsonProperty
     private String country;
 
     /**
      * FK city table, city.name
      */
+    @JsonProperty
     private String city;
+    @JsonProperty("zipcode")
     private String zipCode;
     private Date lastUpdated;
 
@@ -114,7 +128,8 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address [city=" + city + ", country=" + country + ", id=" + id + ", lastUpdated=" + lastUpdated
-                + ", line1=" + line1 + ", line2=" + line2 + ", line3=" + line3 + ", zipCode=" + zipCode + "]";
+        return "Address [id=" + id + ", city=" + city + ", country=" + country + ", line1=" + line1 + ", line2=" + line2
+                + ", line3="
+                + line3 + ", zipCode=" + zipCode + "]";
     }
 }
