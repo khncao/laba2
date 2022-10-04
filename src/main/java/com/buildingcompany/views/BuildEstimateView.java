@@ -1,5 +1,7 @@
 package com.buildingcompany.views;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +26,14 @@ import javafx.scene.text.Text;
 public class BuildEstimateView {
     final Text displayMessage = new Text();
     final GridPane grid = new GridPane();
-    private BuildEstimateController controller;
     private int rowIndex = 0;
+    private int[] buildingTypeIndex = new int[] { -1 };
+    private String countryText;
+    private PropertyChangeSupport propertyChangeSupport;
 
     public BuildEstimateView(BuildEstimateController controller) {
-        this.controller = controller;
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
+
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(2);
@@ -40,15 +45,20 @@ public class BuildEstimateView {
         TextField country = new TextField();
         TextField city = new TextField();
         TextField zipCode = new TextField();
+        
+        country.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            String newText = country.getText();
+            propertyChangeSupport.firePropertyChange("countryText", countryText, newText);
+            countryText = newText;
+        });
 
         ChoiceBox buildingTypeChoice = new ChoiceBox<>();
-        // use array wrapper to modify from lambda
-        int[] buildingTypeIndex = new int[] { -1 };
         List<String> buildingChoices = new ArrayList<String>(20);
         int choiceCount = controller.updateBuildingTypeChoices(buildingChoices);
         buildingTypeChoice.getItems().setAll(buildingChoices);
         buildingTypeChoice.getSelectionModel().selectedIndexProperty().addListener(
             (ObservableValue<? extends Number> ov, Number oldVal, Number newVal) -> {
+                propertyChangeSupport.fireIndexedPropertyChange("buildingTypeIndex", 0, buildingTypeIndex[0], (int)newVal);
                 buildingTypeIndex[0] = (int)newVal;
                 String bldgTypeName = buildingChoices.get(buildingTypeIndex[0]);
                 // controller.testPrintReqResources(bldgTypeName);
@@ -142,5 +152,21 @@ public class BuildEstimateView {
 
     public Parent getParent() {
         return grid;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    public String getCountryText() {
+        return countryText;
+    }
+
+    public int[] getBuildTypeIndex() {
+        return buildingTypeIndex;
     }
 }

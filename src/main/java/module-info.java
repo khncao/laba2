@@ -1,6 +1,7 @@
 module com.buildingcompany {
     requires transitive javafx.controls;
     requires transitive java.sql;
+    requires transitive java.desktop;
     requires org.apache.logging.log4j;
     requires jakarta.xml.bind;
     requires org.mybatis;
