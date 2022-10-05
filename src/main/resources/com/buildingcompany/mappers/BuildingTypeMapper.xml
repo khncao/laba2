@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.buildingcompany.dao.mybatis.mappers.BuildingTypeMapper">
+<mapper namespace="com.buildingcompany.mappers.BuildingTypeMapper">
   <sql id="buildingTypeCols">${alias}.id as "id",${alias}.name as "name",${alias}.base_cost as "baseCost"</sql>
 
   <resultMap id="buildingTypeResult" type="BuildingType">
@@ -11,13 +11,13 @@
   <resultMap id="materialReqResult" type="com.buildingcompany.entities.BuildingTypeAmounts">
     <result property="foundationAmountPerProjectSqrMeter" column="foundation_amount_per_sqrmeter" javaType="BigDecimal"/>
     <result property="amountPerProjectSqrMeter" column="amount_per_sqrmeter" javaType="BigDecimal"/>
-    <association property="object" column="material_id" javaType="Material" select="com.buildingcompany.dao.mybatis.mappers.MaterialMapper.selectMaterial"></association>
+    <association property="object" column="material_id" javaType="Material" select="com.buildingcompany.mappers.MaterialMapper.selectMaterial"></association>
   </resultMap>
 
   <resultMap id="toolReqResult" type="com.buildingcompany.entities.BuildingTypeAmounts">
     <result property="foundationAmountPerProjectSqrMeter" column="foundation_hours_of_rental_per_sqrmeter" javaType="BigDecimal"/>
     <result property="amountPerProjectSqrMeter" column="hours_of_rental_per_sqrmeter" javaType="BigDecimal"/>
-    <association property="object" column="tool_id" javaType="Tool" select="com.buildingcompany.dao.mybatis.mappers.ToolMapper.selectTool"></association>
+    <association property="object" column="tool_id" javaType="Tool" select="com.buildingcompany.mappers.ToolMapper.selectTool"></association>
   </resultMap>
 
   <select id="selectMaterialReqs" resultMap="materialReqResult">

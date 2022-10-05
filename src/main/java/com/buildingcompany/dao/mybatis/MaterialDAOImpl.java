@@ -4,8 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.buildingcompany.dao.MaterialDAO;
-import com.buildingcompany.dao.mybatis.mappers.MaterialMapper;
 import com.buildingcompany.entities.Material;
+import com.buildingcompany.mappers.MaterialMapper;
 
 public class MaterialDAOImpl extends DAOImpl implements MaterialDAO {
     public MaterialDAOImpl() {

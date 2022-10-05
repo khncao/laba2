@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.buildingcompany.dao.BuildingTypeDAO;
-import com.buildingcompany.dao.mybatis.mappers.BuildingTypeMapper;
 import com.buildingcompany.entities.BuildingType;
+import com.buildingcompany.mappers.BuildingTypeMapper;
 
 public class BuildingTypeDAOImpl extends DAOImpl implements BuildingTypeDAO {
     public BuildingTypeDAOImpl() {

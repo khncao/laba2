@@ -17,6 +17,6 @@
         </environment>
     </environments>
     <mappers>
-        <package name="com.buildingcompany.dao.mybatis.mappers" />
+        <package name="com.buildingcompany.mappers" />
     </mappers>
 </configuration>

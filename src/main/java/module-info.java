@@ -18,6 +18,6 @@ module com.buildingcompany {
     exports com.buildingcompany.utility.adapters;
 
     opens com.buildingcompany.entities to jakarta.xml.bind, com.fasterxml.jackson.databind;
-    opens com.buildingcompany.dao.mybatis.mappers;
+    opens com.buildingcompany.mappers;
     opens properties;
 }

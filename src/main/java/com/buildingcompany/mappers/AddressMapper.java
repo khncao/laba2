@@ -1,4 +1,4 @@
-package com.buildingcompany.dao.mybatis.mappers;
+package com.buildingcompany.mappers;
 
 import com.buildingcompany.entities.Address;
 

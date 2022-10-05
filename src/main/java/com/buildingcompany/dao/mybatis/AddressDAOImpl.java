@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.buildingcompany.dao.AddressDAO;
-import com.buildingcompany.dao.mybatis.mappers.AddressMapper;
 import com.buildingcompany.entities.Address;
+import com.buildingcompany.mappers.AddressMapper;
 
 public class AddressDAOImpl extends DAOImpl implements AddressDAO {
     public AddressDAOImpl() {

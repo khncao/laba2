@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.buildingcompany.dao.mybatis.mappers.MaterialMapper">
+<mapper namespace="com.buildingcompany.mappers.MaterialMapper">
   <sql id="materialCols">${alias}.id as "id",${alias}.name as "name",${alias}.length_meters as "lengthMeters",${alias}.width_meters as "widthMeters",${alias}.height_meters as "heightMeters",${alias}.weight_kg as "weightKg"</sql>
 
   <resultMap id="materialResult" type="Material">
