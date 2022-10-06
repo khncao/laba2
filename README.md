@@ -5,6 +5,8 @@ Estimate how long it will take and how much it will cost to build different type
 ### Notes:
 - Currently, calculations and complex queries only vertical integrated with building type material and tool requirements
 - Swap JDBC and MyBatis DAO implementations by changing import in BuildEstimateController
+- DAOFactory returns jdbc/mybatis DAO impl; depreciating as not exactly to spec
+- Alternatively, ICalculationDataCollector is wrapper service for jdbc DAO impl and directly to MyBatis SqlSession and mappers, bypassing MyBatis DAO impl to get data for calculations as needed
 
 ### Todo:
 - Use more DAOs in services to run more complex calculations using queried data
