@@ -1,4 +1,4 @@
-package com.buildingcompany.dao;
+package com.buildingcompany.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,12 +10,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.buildingcompany.dao.AddressDAO;
+import com.buildingcompany.dao.DAO;
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.services.IConnectionPool;
 
-public class AddressDAOImpl implements AddressDAO {
+public class AddressDAOImpl extends DAOImpl implements AddressDAO {
     private static Logger logger = LogManager.getLogger(AddressDAOImpl.class);
-    private IConnectionPool connectionPool;
     private final String ALL_COLS = "address.id,line_1,line_2,line_3,country_id,city_id,zipcode";
     private final String SELECT_ALL_COLS_NAMES_JOINED = "SELECT address.id, line_1, line_2, line_3, country.name, city.name, zipcode " 
     + "FROM address JOIN country ON address.country_id = country.id "
@@ -23,12 +24,15 @@ public class AddressDAOImpl implements AddressDAO {
     private final String UPDATE_ALL_COLS_FORMAT = "UPDATE address SET address.id=%s,line_1=%s,line_2=%s,line_3=%s,country_id=%s,city_id=%s,zipcode=%s WHERE address.id = %s";
     private final String INSERT_ALL_COLS_FORMAT = "INSERT INTO address(" + ALL_COLS + ") VALUES (%s,%s,%s,%s,%s,%s,%s)";
     private final String DELETE_BY_ID_FORMAT = "DELETE FROM address WHERE address.id = %s";
+
+    public AddressDAOImpl() {
+        super();
+    }
     
     public AddressDAOImpl(IConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+        super(connectionPool);
     }
 
-    // TODO(khncao): maybe can further parameterize or use conditional string building to avoid so much similar code
     public Address getAddressById(int primaryKey) {
         Address address = null;
         String query = SELECT_ALL_COLS_NAMES_JOINED + "WHERE id = ?;";
@@ -129,8 +133,8 @@ public class AddressDAOImpl implements AddressDAO {
             t.getLine1(), 
             t.getLine2(), 
             t.getLine3(), 
-            GenericDAO.generateGetIdFromName("country", t.getCountry()), 
-            GenericDAO.generateGetIdFromName("city", t.getCity()), 
+            DAO.generateGetIdFromName("country", t.getCountry()), 
+            DAO.generateGetIdFromName("city", t.getCity()), 
             t.getZipCode());
         Connection conn = null;
         try {
@@ -175,8 +179,8 @@ public class AddressDAOImpl implements AddressDAO {
             t.getLine1(), 
             t.getLine2(), 
             t.getLine3(), 
-            GenericDAO.generateGetIdFromName("country", t.getCountry()), 
-            GenericDAO.generateGetIdFromName("city", t.getCity()), 
+            DAO.generateGetIdFromName("country", t.getCountry()), 
+            DAO.generateGetIdFromName("city", t.getCity()), 
             t.getZipCode(),
             t.getId());
         Connection conn = null;

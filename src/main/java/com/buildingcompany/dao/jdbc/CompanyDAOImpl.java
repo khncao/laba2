@@ -1,4 +1,4 @@
-package com.buildingcompany.dao;
+package com.buildingcompany.dao.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,19 +10,28 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.buildingcompany.dao.AddressDAO;
+import com.buildingcompany.dao.CompanyDAO;
 import com.buildingcompany.entities.Address;
 import com.buildingcompany.entities.Company;
 import com.buildingcompany.services.IConnectionPool;
 
-public class CompanyDAOImpl implements CompanyDAO {
+public class CompanyDAOImpl extends DAOImpl implements CompanyDAO {
     private static Logger logger = LogManager.getLogger(CompanyDAOImpl.class);
-    private IConnectionPool connectionPool;
     private AddressDAO addressDAO;
     private final String GET_COMPANIES_ADDRESSES_BY_COUNTRY_INDUSTRY = "SELECT address_id, id, name, industry.name\n"
     + "FROM company JOIN industry ON company.industry_id = industry.id\n"
         + "JOIN address ON company.address_id = address.id\n"
         + "JOIN country ON address.country_id = country.id\n"
     + "WHERE country.name = ? AND industry.name = ?;";
+
+    public CompanyDAOImpl() {
+        super();
+    }
+
+    public CompanyDAOImpl(IConnectionPool connectionPool) {
+        super(connectionPool);
+    }
     
     public CompanyDAOImpl(IConnectionPool connectionPool, AddressDAO addressDAO) {
         this.connectionPool = connectionPool;

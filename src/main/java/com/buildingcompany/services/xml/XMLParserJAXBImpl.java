@@ -1,4 +1,4 @@
-package com.buildingcompany.services;
+package com.buildingcompany.services.xml;
 
 import java.io.File;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.buildingcompany.entities.Wrapper;
-import com.buildingcompany.utility.Resources;
+import com.buildingcompany.utility.ResourcePaths;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
@@ -33,7 +33,7 @@ public class XMLParserJAXBImpl implements IXMLParser {
             JAXBContext context = JAXBContext.newInstance(Wrapper.class, entityClass);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             JAXBElement<Wrapper> result = unmarshaller
-                    .unmarshal(new StreamSource(Resources.xmlPath + xmlFileNameNoExt + ".xml"), Wrapper.class);
+                    .unmarshal(new StreamSource(ResourcePaths.xmlPath + xmlFileNameNoExt + ".xml"), Wrapper.class);
             return result.getValue().getItems();
         } catch (JAXBException e) {
             logger.error(e.toString());
@@ -44,10 +44,10 @@ public class XMLParserJAXBImpl implements IXMLParser {
     public <T> boolean validate(String xmlFileNameNoExt, String xsdFileNameNoExt, Class<T> entityClass) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(entityClass);
-            Schema schema = schemaFactory.newSchema(new File(Resources.xsdPath + xsdFileNameNoExt + ".xsd"));
+            Schema schema = schemaFactory.newSchema(new File(ResourcePaths.xsdPath + xsdFileNameNoExt + ".xsd"));
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             unmarshaller.setSchema(schema);
-            StreamSource source = new StreamSource(new File(Resources.xmlPath + xmlFileNameNoExt + ".xml"));
+            StreamSource source = new StreamSource(new File(ResourcePaths.xmlPath + xmlFileNameNoExt + ".xml"));
             unmarshaller.unmarshal(source, entityClass);
             return true;
         } catch(JAXBException e) {

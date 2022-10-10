@@ -2,6 +2,12 @@
 # Building Company
 Estimate how long it will take and how much it will cost to build different types of buildings. Tool to approximate construction cost based on set of inputs.  
 
+### Notes:
+- Currently, calculations and complex queries only vertical integrated with building type material and tool requirements
+- Swap JDBC and MyBatis DAO implementations by changing import in BuildEstimateController
+- DAOFactory returns jdbc/mybatis DAO impl; depreciating as not exactly to spec
+- Alternatively, ICalculationDataCollector is wrapper service for jdbc DAO impl and directly to MyBatis SqlSession and mappers, bypassing MyBatis DAO impl to get data for calculations as needed
+
 ### Todo:
 - Use more DAOs in services to run more complex calculations using queried data
 - Entity/model for employee role average hourly cost per country
@@ -19,6 +25,8 @@ Estimate how long it will take and how much it will cost to build different type
 	- xmlParse: take file path as input
 
 ### Changelog:
+- DAOFactory to get DAOImpl instance for desired entity and impl
+- MyBatis impl; refactor to allow swapping to and from JDBC impl
 - Switch to DAO pattern for entity database queries; implement simple framework
 - Migrate to service interfaces for connection pool, calculating time/cost
 - Move project to new repo laba2
