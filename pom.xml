@@ -50,6 +50,13 @@
             <artifactId>mybatis</artifactId>
             <version>3.5.11</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.6.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
