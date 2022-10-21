@@ -29,17 +29,16 @@ public class MySqlConnectionTest {
     @Test
     void testGetInstance() {
         MySqlConnection mySqlConnection2 = MySqlConnection.getInstance();
-        assertNotNull(mySqlConnection2);
-        assertEquals(mySqlConnection2, mySqlConnection);
+        assertEquals(mySqlConnection2, mySqlConnection, "Singleton getInstance did not return same instance");
     }
 
     @Test
     void testGetConnectionValidAndNotNull() {
         Connection connection = mySqlConnection.getConnection();
-        assertNotNull(connection);
+        assertNotNull(connection, "getConnection should not return null connection if fresh pool");
         connectionsCache.add(connection);
         try {
-            assertTrue(connection.isValid(0));
+            assertTrue(connection.isValid(0), "Connection should be valid");
         } catch (SQLException e) {
             logger.error(e);
         }
@@ -49,13 +48,13 @@ public class MySqlConnectionTest {
     void testGetConnectionNullIfOverdrawn() {
         getConnectionsToCache(MySqlConnection.DefaultPoolSize);
         Connection overdrawnConn = mySqlConnection.getConnection();
-        assertNull(overdrawnConn);
+        assertNull(overdrawnConn, "getConnection succeeded despite expected null result from maximum pool size");
     }
 
     @Test
     void testIsConnectionValid() {
         Connection conn1 = getConnectionToCache();
-        assertTrue(MySqlConnection.isConnectionValid(conn1));
+        assertTrue(MySqlConnection.isConnectionValid(conn1), "Single connection from fresh pool should give valid connection");
     }
 
     @Test
@@ -66,14 +65,14 @@ public class MySqlConnectionTest {
         } catch(SQLException e) {
             logger.error(e);
         }
-        assertFalse(MySqlConnection.isConnectionValid(conn2));
+        assertFalse(MySqlConnection.isConnectionValid(conn2), "Connection valid despite expectations after calling close()");
     }
 
     @Test
     void testFreeConnection() {
         getConnectionsToCache(MySqlConnection.DefaultPoolSize);
         Connection overdrawnConn = mySqlConnection.getConnection();
-        assertNull(overdrawnConn);
+        assertNull(overdrawnConn, "Non-null connection despite expected null due to pool size");
         connectionsCache.forEach((x) -> mySqlConnection.freeConnection(x));
         getConnectionsToCache(MySqlConnection.DefaultPoolSize);
     }
