@@ -11,7 +11,7 @@ import com.buildingcompany.entities.Tool;
 public class DAOFactoryTest {
     // TODO(khncao): would be useful to check that every iteration of entity & implementation input returns correct daoImpl; maybe enumerated entity classes and implementations somewhere
     @Test
-    void testGetDaoImplWithValidInputs() {
+    public void testGetDaoImplWithValidInputs() {
         SoftAssert softAssert = new SoftAssert();
         Object daoImpl1 = DAOFactory.getDaoImpl(Address.class, "jdbc");
         softAssert.assertNotNull(daoImpl1, "getDaoImpl for Address & jdbc failed; should not be null");
@@ -28,7 +28,7 @@ public class DAOFactoryTest {
     }
 
     @Test
-    void testGetDaoImplWithInvalidInputs() {
+    public void testGetDaoImplWithInvalidInputs() {
         Object daoImpl1 = DAOFactory.getDaoImpl(Address.class, "x");
         assertNull(daoImpl1, "Returned object when not expected after invalid implementation input");
         Object daoImpl2 = DAOFactory.getDaoImpl(DAOFactory.class, "jdbc");
@@ -36,7 +36,7 @@ public class DAOFactoryTest {
     }
 
     @Test
-    void testSetDefaultImpl() {
+    public void testSetDefaultImpl() {
         String defaultImpl = DAOFactory.getDefaultImpl();
         DAOFactory.setDefaultImpl("test1");
         assertNotEquals(defaultImpl, "test1", "defaultImpl variable should not equal cached value after setting");
@@ -44,7 +44,7 @@ public class DAOFactoryTest {
     }
 
     @Test(dependsOnMethods = "testSetDefaultImpl")
-    void testGetDaoImplWithDefaultImpl() {
+    public void testGetDaoImplWithDefaultImpl() {
         Object daoImpl1 = DAOFactory.getDaoImpl(Address.class);
         assertNull(daoImpl1, "Returned object when not expected as defaultImpl should be null");
         
